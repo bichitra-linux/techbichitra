@@ -4,18 +4,20 @@ import GoogleProvider from "next-auth/providers/google";
 import prisma from "./connect";
 import { NextAuthOptions, getServerSession } from "next-auth";
 import { AdapterUser } from "next-auth/adapters";
-import { v4 as uuidv4 } from 'uuid';
-
 
 const { GOOGLE_ID, GOOGLE_SECRET, GITHUB_ID, GITHUB_SECRET } = process.env;
-const generateId = () => uuidv4();
 
 if (!GOOGLE_ID || !GOOGLE_SECRET || !GITHUB_ID || !GITHUB_SECRET) {
   throw new Error('Environment variables GOOGLE_ID, GOOGLE_SECRET, GITHUB_ID, GITHUB_SECRET must be set');
 }
 
-const prismaAdapter = PrismaAdapter(prisma);
-
+const prismaAdapter = PrismaAdapter(prisma) as any;
+prismaAdapter.createUser = async (user: Omit<AdapterUser, "id">) => {
+  const savedUser = await prisma.user.create({
+    data: user,
+  });
+  return savedUser;
+};
 export const authOptions: NextAuthOptions = {
   adapter: prismaAdapter,
   providers: [
