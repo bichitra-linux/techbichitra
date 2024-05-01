@@ -3,7 +3,7 @@ import styles from "./singlePage.module.scss";
 import Image from "next/image";
 import Comments from "@/components/comments/Comments";
 
-const getData = async (slug) => {
+const getData = async (slug: string) => {
   const res = await fetch(`http://localhost:3000/api/posts/${slug}`, {
     cache: "no-store",
   });
@@ -15,7 +15,7 @@ const getData = async (slug) => {
   return res.json();
 };
 
-const SinglePage = async ({ params }) => {
+const SinglePage = async ({ params }: { params: { slug: string } }) => {
   const { slug } = params;
 
   const data = await getData(slug);
