@@ -20,42 +20,45 @@ const WritePage = () => {
   const router = useRouter();
 
   const [open, setOpen] = useState(false);
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState<File | null>(null);
   const [media, setMedia] = useState("");
   const [value, setValue] = useState("");
   const [title, setTitle] = useState("");
   const [catSlug, setCatSlug] = useState("");
 
+
   useEffect(() => {
     const storage = getStorage(app);
     const upload = () => {
-      const name = new Date().getTime() + file.name;
-      const storageRef = ref(storage, name);
+      if (file) {
+        const name = new Date().getTime() + file.name;
+        const storageRef = ref(storage, name);
 
-      const uploadTask = uploadBytesResumable(storageRef, file);
+        const uploadTask = uploadBytesResumable(storageRef, file);
 
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          const progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log("Upload is " + progress + "% done");
-          switch (snapshot.state) {
-            case "paused":
-              console.log("Upload is paused");
-              break;
-            case "running":
-              console.log("Upload is running");
-              break;
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => {
+            const progress =
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log("Upload is " + progress + "% done");
+            switch (snapshot.state) {
+              case "paused":
+                console.log("Upload is paused");
+                break;
+              case "running":
+                console.log("Upload is running");
+                break;
+            }
+          },
+          (error) => { },
+          () => {
+            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+              setMedia(downloadURL);
+            });
           }
-        },
-        (error) => {},
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            setMedia(downloadURL);
-          });
-        }
-      );
+        );
+      }
     };
 
     file && upload();
@@ -69,7 +72,7 @@ const WritePage = () => {
     router.push("/");
   }
 
-  const slugify = (str) =>
+  const slugify = (str: string) =>
     str
       .toLowerCase()
       .trim()
@@ -120,7 +123,11 @@ const WritePage = () => {
             <input
               type="file"
               id="image"
-              onChange={(e) => setFile(e.target.files[0])}
+              onChange={(e) => {
+                if (e.target.files) {
+                  setFile(e.target.files[0]);
+                }
+              }}
               style={{ display: "none" }}
             />
             <button className={styles.addButton}>
