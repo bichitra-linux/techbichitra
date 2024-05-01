@@ -1,5 +1,5 @@
 import Link from "next/link";
-import styles from "./homepage.module.css";
+import styles from "./homepage.module.scss";
 import Featured from "@/components/featured/Featured";
 import CategoryList from "@/components/categoryList/CategoryList";
 import CardList from "@/components/cardList/CardList";
