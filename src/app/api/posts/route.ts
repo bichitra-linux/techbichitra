@@ -4,14 +4,14 @@ import { IncomingMessage } from "http";
 import { NextApiRequest } from "next";
 import { NextResponse } from "next/server";
 
-export const GET = async (req: { url: string | null }) => {
-  if (!req.url) {
+export const GET = async (req: { url: string }) => {
+  if (req.url === null) {
     const errorMessage = "URL is missing!";
     return new NextResponse(JSON.stringify({ message: errorMessage }), { status: 400 });
   }
 
   // Use a type assertion to tell TypeScript that req.url is definitely a string
-  const { searchParams } = new URL(req.url as string);
+  const { searchParams } = new URL(req.url);
   const page = parseInt(searchParams.get("page")) || 1;
   const cat = searchParams.get("cat");
 
