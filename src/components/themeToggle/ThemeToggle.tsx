@@ -5,8 +5,17 @@ import styles from "./themeToggle.module.scss";
 import { useContext } from "react";
 import { ThemeContext } from "@/context/ThemeContext";
 
+type ThemeContextType = {
+  theme: string;
+  toggle: () => void;
+};
+
 const ThemeToggle = () => {
-  const { toggle, theme } = useContext(ThemeContext);
+  const { toggle, theme } = useContext(ThemeContext) as ThemeContextType;
+
+  if (!toggle || !theme) {
+    return null; // or some error component
+  }
 
   return (
     <div
