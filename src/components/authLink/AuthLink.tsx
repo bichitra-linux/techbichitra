@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import styles from "./authLinks.module.scss";
+import styles from "./authLink.module.scss";
 import { useState } from "react";
 import { signOut, useSession } from "next-auth/react";
 
