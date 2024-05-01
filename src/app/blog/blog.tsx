@@ -2,7 +2,12 @@ import CardList from "@/components/cardList/CardList";
 import styles from "./blogPage.module.scss";
 import Menu from "@/components/Menu/Menu";
 
-const BlogPage = ({ searchParams }) => {
+type SearchParams = {
+  page: string;
+  cat: string;
+};
+
+const BlogPage: React.FC<{ searchParams: SearchParams }> = ({ searchParams }) => {
   const page = parseInt(searchParams.page) || 1;
   const { cat } = searchParams;
 
