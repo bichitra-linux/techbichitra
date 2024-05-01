@@ -4,7 +4,14 @@ import React from "react";
 import styles from "./pagination.module.scss";
 import { useRouter } from "next/navigation";
 
-const Pagination = ({ page, hasPrev, hasNext }) => {
+
+interface PaginationProps {
+  page: number;
+  hasPrev: boolean;
+  hasNext: boolean;
+}
+
+const Pagination: React.FC<PaginationProps> = ({ page, hasPrev, hasNext }) => {
   const router = useRouter();
  
   return (
