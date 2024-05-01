@@ -24,7 +24,8 @@ const getData = async (page: number, cat: string) => {
   );
 
   if (!res.ok) {
-    throw new Error("Failed");
+    const body = await res.json();
+    throw new Error(`Request failed: ${res.status} ${res.statusText}, ${JSON.stringify(body)}`);
   }
 
   return res.json();
