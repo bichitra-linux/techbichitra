@@ -7,7 +7,22 @@ import useSWR from "swr";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 
-const fetcher = async (url) => {
+type CommentsProps = {
+  postSlug: string;
+}
+
+type Comment = {
+  _id: string;
+  user: {
+    image: string;
+    name: string;
+  };
+  createdAt: string;
+  desc: string;
+};
+
+
+const fetcher = async (url: string) => {
   const res = await fetch(url);
 
   const data = await res.json();
@@ -20,7 +35,7 @@ const fetcher = async (url) => {
   return data;
 };
 
-const Comments = ({ postSlug }) => {
+const Comments: React.FC<CommentsProps> = ({ postSlug }) => {
   const { status } = useSession();
 
   const { data, mutate, isLoading } = useSWR(
@@ -58,7 +73,7 @@ const Comments = ({ postSlug }) => {
       <div className={styles.comments}>
         {isLoading
           ? "loading"
-          : data?.map((item) => (
+          : data?.map((item: Comment) => (
               <div className={styles.comment} key={item._id}>
                 <div className={styles.user}>
                   {item?.user?.image && (
