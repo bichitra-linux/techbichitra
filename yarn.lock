@@ -864,7 +864,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/core-downloads-tracker@npm:^6.0.0-alpha.3":
+"@mui/core-downloads-tracker@npm:^6.0.0-dev.240424162023-9968b4889d":
   version: 6.0.0-dev.240424162023-9968b4889d
   resolution: "@mui/core-downloads-tracker@npm:6.0.0-dev.240424162023-9968b4889d"
   checksum: 10c0/d487a2acbc7cf9ab3cee7c362ebe6a02ed54f7a7602acbf72a665b100f5d69d11c2f400df88aee6a1484a6fdb616eaae42e46e7f45b58d32277e53bd2dbcdec4
@@ -887,14 +887,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/joy@npm:5.0.0-beta.36":
-  version: 5.0.0-beta.36
-  resolution: "@mui/joy@npm:5.0.0-beta.36"
+"@mui/joy@npm:5.0.0-dev.240424162023-9968b4889d":
+  version: 5.0.0-dev.240424162023-9968b4889d
+  resolution: "@mui/joy@npm:5.0.0-dev.240424162023-9968b4889d"
   dependencies:
     "@babel/runtime": "npm:^7.24.4"
     "@mui/base": "npm:5.0.0-beta.42"
-    "@mui/core-downloads-tracker": "npm:^6.0.0-alpha.3"
-    "@mui/system": "npm:^6.0.0-alpha.3"
+    "@mui/core-downloads-tracker": "npm:^6.0.0-dev.240424162023-9968b4889d"
+    "@mui/system": "npm:^6.0.0-dev.240424162023-9968b4889d"
     "@mui/types": "npm:^7.2.14"
     "@mui/utils": "npm:^6.0.0-alpha.3"
     clsx: "npm:^2.1.0"
@@ -912,7 +912,7 @@ __metadata:
       optional: true
     "@types/react":
       optional: true
-  checksum: 10c0/4a0475560c8983e13927ec4c4c44f068260178918f2663d016faf4f9eb529acbc5ac5140ce469210c021a4c0f44d13b4773183ec552881ed7291f7b4406b8afe
+  checksum: 10c0/142558652677f922ad022f12c97e9e76c10873e9a63a511bbb1633a2e9bcb0c3c996c38d6ee06de0590aed94873ba59aebabf0a9eee1a3bc320d8fc4b3844fda
   languageName: node
   linkType: hard
 
@@ -1053,7 +1053,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/system@npm:^6.0.0-alpha.3":
+"@mui/system@npm:^6.0.0-dev.240424162023-9968b4889d":
   version: 6.0.0-dev.240424162023-9968b4889d
   resolution: "@mui/system@npm:6.0.0-dev.240424162023-9968b4889d"
   dependencies:
@@ -5665,9 +5665,9 @@ __metadata:
   dependencies:
     "@auth/prisma-adapter": "npm:^2.0.0"
     "@eslint/js": "npm:^9.1.1"
-    "@mui/base": "npm:5.0.0-beta.40"
+    "@mui/base": "npm:5.0.0-beta.42"
     "@mui/icons-material": "npm:^5.15.15"
-    "@mui/joy": "npm:5.0.0-beta.36"
+    "@mui/joy": "npm:5.0.0-dev.240424162023-9968b4889d"
     "@mui/material": "npm:^5.15.15"
     "@mui/system": "npm:^5.15.15"
     "@mui/types": "npm:^7.2.14"
