@@ -2,7 +2,16 @@
 
 import { createContext, useEffect, useState } from "react";
 
-export const ThemeContext = createContext();
+type ThemeContextType = {
+  theme: string;
+  toggle: () => void;
+};
+
+type ThemeContextProps = {
+  children: React.ReactNode;
+}
+
+export const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 const getFromLocalStorage = () => {
   if (typeof window !== "undefined") {
@@ -11,9 +20,9 @@ const getFromLocalStorage = () => {
   }
 };
 
-export const ThemeContextProvider = ({ children }) => {
+export const ThemeContextProvider: React.FC<ThemeContextProps> = ({ children }) => {
   const [theme, setTheme] = useState(() => {
-    return getFromLocalStorage();
+    return getFromLocalStorage() || "light";
   });
 
   const toggle = () => {
