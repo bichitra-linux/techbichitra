@@ -9,9 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@mui/base": "5.0.0-beta.42",
+    "@auth/prisma-adapter": "^2.0.0",
+    "@mui/base": "5.0.0-beta.40",
     "@mui/icons-material": "^5.15.15",
-    "@mui/joy": "5.0.0-dev.240424162023-9968b4889d",
+    "@mui/joy": "5.0.0-beta.36",
     "@mui/material": "^5.15.15",
     "@mui/system": "^5.15.15",
     "@mui/types": "^7.2.14",
@@ -19,6 +20,8 @@
     "@prisma/client": "^5.13.0",
     "@prisma/engines": "^5.13.0",
     "autoprefixer": "^10.4.19",
+    "eslint-config-next": "^14.2.3",
+    "firebase": "^10.11.1",
     "mui": "^0.0.1",
     "next": "^14.2.3",
     "next-auth": "^4.24.7",
@@ -26,7 +29,11 @@
     "prettier": "^3.2.5",
     "prisma": "^5.13.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-quill": "^2.0.0",
+    "sass": "^1.76.0",
+    "scss": "^0.2.4",
+    "swr": "^2.2.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.1.1",
