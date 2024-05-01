@@ -1765,7 +1765,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next@npm:14.2.3":
+"next@npm:^14.2.3":
   version: 14.2.3
   resolution: "next@npm:14.2.3"
   dependencies:
@@ -2378,7 +2378,7 @@ __metadata:
     eslint: "npm:^9.1.1"
     eslint-plugin-react: "npm:^7.34.1"
     globals: "npm:^15.1.0"
-    next: "npm:14.2.3"
+    next: "npm:^14.2.3"
     react: "npm:^18"
     react-dom: "npm:^18"
     typescript: "npm:^5"
