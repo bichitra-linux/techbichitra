@@ -7,9 +7,9 @@ import { AdapterUser } from "next-auth/adapters";
 
 const { GOOGLE_ID, GOOGLE_SECRET, GITHUB_ID, GITHUB_SECRET } = process.env;
 
-if (!GOOGLE_ID || !GOOGLE_SECRET || !GITHUB_ID || !GITHUB_SECRET) {
+/*if (!GOOGLE_ID || !GOOGLE_SECRET || !GITHUB_ID || !GITHUB_SECRET) {
   throw new Error('Environment variables GOOGLE_ID, GOOGLE_SECRET, GITHUB_ID, GITHUB_SECRET must be set');
-}
+}*/
 
 const prismaAdapter = PrismaAdapter(prisma) as any;
 prismaAdapter.createUser = async (user: Omit<AdapterUser, "id">) => {
