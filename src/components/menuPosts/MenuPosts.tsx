@@ -3,7 +3,11 @@ import Link from "next/link";
 import React from "react";
 import styles from "./menuPosts.module.scss"
 
-const MenuPosts = ({ withImage }) => {
+type MenuPostsProps = {
+  withImage: boolean;
+}
+
+const MenuPosts: React.FC<MenuPostsProps> = ({ withImage }) => {
   return (
     <div className={styles.items}>
       <Link href="/" className={styles.item}>
