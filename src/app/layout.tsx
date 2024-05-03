@@ -6,6 +6,9 @@ import { ThemeContextProvider } from "@/context/ThemeContext";
 import ThemeProvider from "@/providers/ThemeProvider";
 import AuthProvider from "@/providers/AuthProvider";
 import { ReactNode } from "react";
+import { SessionProvider } from "next-auth/react";
+import { getSession } from "next-auth/react";
+import { GetServerSidePropsContext } from 'next';
 
 interface RootLayoutProps {
   children: ReactNode;
@@ -18,24 +21,31 @@ export const metadata = {
   description: "Everything about Tech",
 };
 
-export default function RootLayout({ children }: RootLayoutProps) {
+export default function RootLayout({ children, session }: RootLayoutProps & { session: any }) {
   return (
     <html lang="en">
       <body className={inter.className}>
         <AuthProvider>
-          <ThemeContextProvider>
-            <ThemeProvider>
-              <div className="container">
-                <div className="wrapper">
-                  <Navbar />
-                  {children}
-                  <Footer />
+          <SessionProvider session={session}>
+            <ThemeContextProvider>
+              <ThemeProvider>
+                <div className="container">
+                  <div className="wrapper">
+                    <Navbar />
+                    {children}
+                    <Footer />
+                  </div>
                 </div>
-              </div>
-            </ThemeProvider>
-          </ThemeContextProvider>
+              </ThemeProvider>
+            </ThemeContextProvider>
+          </SessionProvider>
         </AuthProvider>
       </body>
     </html>
   );
 }
+
+RootLayout.getInitialProps = async (ctx: GetServerSidePropsContext) => {
+  const session = await getSession(ctx);
+  return { session };
+};
