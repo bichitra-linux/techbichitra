@@ -9,16 +9,22 @@ import { storeInSession } from "../common/session";
 import { UserContext, UserContextType } from "../App";
 import { authWithGoogle } from "../common/firebase";
 
-const UserAuthForm = ({ type }) => {
+interface AuthFormData {
+    fullname?: string;
+    email: string;
+    password: string;
+}
 
-    const authForm = useRef();
+const UserAuthForm = ({ type }: { type: "sign-in" | "sign-up" }) => {
+
+    const authForm = useRef<HTMLFormElement>(null);
 
     const { userAuth: { access_token }, setUserAuth } = useContext<UserContextType>(UserContext)
 
     console.log(access_token);
 
     //function to handle user authentication through server
-    const userAuthThroughServer = (serverRoute, formData) => {
+    const userAuthThroughServer = (serverRoute: string, formData: AuthFormData) => {
         axios.post(import.meta.env.VITE_SERVER_DOMAIN + serverRoute, formData)
             .then(({ data }) => {
                 storeInSession("user", JSON.stringify(data))
@@ -34,20 +40,24 @@ const UserAuthForm = ({ type }) => {
             });
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
         const serverRoute = type == "sign-in" ? "/signin" : "/signup";
-        const form = new FormData(formElement);
-        const formData = {};
+        const form = new FormData(authForm.current as HTMLFormElement);
+        const formData: AuthFormData = {
+            fullname: form.get("fullname") as string,
+            email: form.get("email") as string,
+            password: form.get("password") as string,
+        };
 
         const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;    // regex for e-mail
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;   // regex for password
 
 
-        for (const [key, value] of form.entries()) {
+        {/*for (const [key, value] of form.entries()) {
             formData[key] = value;
-        }
+        }*/}
 
         //form validation 
 
@@ -75,19 +85,22 @@ const UserAuthForm = ({ type }) => {
         userAuthThroughServer(serverRoute, formData)
     }
 
-    const handleGoogleAuth = (e) => {
+    const handleGoogleAuth = (e: React.FormEvent<HTMLButtonElement>) => {
         e.preventDefault();
         authWithGoogle().then(user => {
-            const serverRoute = "/google-auth";
-            const formData = {
-                access_token: user.accessToken
+            if (!user) {
+                toast.error("Failed to authenticate with Google. Please try again.");
+                return;
             }
-            userAuthThroughServer(serverRoute, formData)
+            const serverRoute = "/google-auth";
+            const formData = new FormData();
+            formData.append("access_token", user.accessToken);
+            userAuthThroughServer(serverRoute, formData as unknown as AuthFormData)
         })
-        .catch(err => {
-            toast.error("Problem Logging in with Google. Please Try Again Later");
-            return console.log(err);
-        })
+            .catch(err => {
+                toast.error("Problem Logging in with Google. Please Try Again Later");
+                return console.log(err);
+            })
     }
 
     return (
@@ -98,7 +111,7 @@ const UserAuthForm = ({ type }) => {
                 <AnimationWrapper keyValue={type}>
                     <section className="h-cover flex items-center justify-center">
                         <Toaster />
-                        <form id="formElement" className="w-[80%] max-w-[400px]">
+                        <form id="formElement" ref={authForm} className="w-[80%] max-w-[400px]">
                             <h1 className="text-4xl capitalize text-center mb-24">
                                 {type === "sign-in" ? "Welcome Back" : "Join Us Today"}
                             </h1>
