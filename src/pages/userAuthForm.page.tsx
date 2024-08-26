@@ -6,14 +6,14 @@ import { useContext, useRef } from "react";
 import { toast, Toaster } from "react-hot-toast"
 import axios from "axios";
 import { storeInSession } from "../common/session";
-import { UserContext } from "../App";
+import { UserContext, UserContextType } from "../App";
 import { authWithGoogle } from "../common/firebase";
 
 const UserAuthForm = ({ type }) => {
 
     const authForm = useRef();
 
-    let { userAuth: { access_token }, setUserAuth } = useContext(UserContext)
+    const { userAuth: { access_token }, setUserAuth } = useContext<UserContextType>(UserContext)
 
     console.log(access_token);
 
@@ -39,7 +39,7 @@ const UserAuthForm = ({ type }) => {
 
         const serverRoute = type == "sign-in" ? "/signin" : "/signup";
         const form = new FormData(formElement);
-        let formData = {};
+        const formData = {};
 
         const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;    // regex for e-mail
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;   // regex for password
