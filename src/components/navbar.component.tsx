@@ -12,7 +12,7 @@ const Navbar = () => {
 
     const  [ userNavPanel, setUserNavPanel ] = useState(false);
 
-    const context = useContext<UserContextType | undefined>(UserContext);
+    const context = useContext<UserContextType>(UserContext);
 
     if (!context) {
         // Handle the case where context is undefined
