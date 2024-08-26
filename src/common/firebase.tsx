@@ -4,7 +4,10 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { GoogleAuthProvider, signInWithPopup, getAuth } from "firebase/auth";
 
-
+interface User {
+    accessToken: string;
+    // Add other properties if needed
+}
 
 const firebaseConfig = {
     apiKey: "AIzaSyAxLGjqOfCa9lRvG_spyswBPNZFkObCrPI",
@@ -28,7 +31,7 @@ const provider = new GoogleAuthProvider();
 const auth = getAuth();
 
 // Sign in with Google
-export const authWithGoogle = async () => {
+export const authWithGoogle = async (): Promise<User | null> => {
 
     let user = null;
 
